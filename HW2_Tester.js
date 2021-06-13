@@ -13,7 +13,7 @@ function toString(hashTable) {
     let keys = Object.keys(hashTable); //array of keys for each object
     let s = "[\n";
     for(let i = 0; i < keys.length; i++) {
-        s += " (" + hashTable[keys[i]].toString() + ")\n";
+        s += " (" + keys[i] + ", " + hashTable[keys[i]].toString() + ")\n";
     }
     s += "]";
     
