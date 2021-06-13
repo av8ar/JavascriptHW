@@ -10,11 +10,13 @@ function displayHashTable(header, hashTable) {
 }
 
 function toString(hashTable) {
-    let s = "";
-    for(let i = 0; i < hashTable.length; i++) {
-        s += "(" + hashTable[i].toString() + ")\n";
+    let keys = Object.keys(hashTable); //array of keys for each object
+    let s = "[\n";
+    for(let i = 0; i < keys.length; i++) {
+        s += " (" + hashTable[keys[i]].toString() + ")\n";
     }
-
+    s += "]";
+    
     return s;
 }
 
@@ -52,17 +54,7 @@ function main() {
     text = parent.toString();
     console.log(text);
     */
-    
 
-    /*
-    let person = new Person("Joe", "Shmo");
-    let personPrototype = Object.getPrototypeOf(person);
-    Object.setPrototypeOf(obj, personPrototype);
-    obj.prototype.salary = 0;
-    obj.prototype.toString = function() {
-        return this.getFirstName + " " + this.getLastName + " ($" + this.salary + ")" ;
-    }
-    */
     
     
     // @todo - UPDATE WHERE APPROPRIATE
@@ -71,30 +63,32 @@ function main() {
         this.salary = salary;
     };
     
-    Object.setPrototypeOf(Employee, Person.prototype); //extends
-    
+    //Object.setPrototypeOf(Employee, Person.prototype); //extends
+    Employee.prototype = new Person;
+
     Employee.prototype.toString = function(){
-        return this.getFirstName() + " " + this.getLastName + " (" + this.salary + ")";
+        return this.key + this.firstName + " " + this.lastName + " (" + this.salary + ")";
     }
     
     let hashTable = [];
 
     let testKey = generateKey(8);
     console.log(testKey);
-    hashTable[testKey] = new Person("George", "Harrison");
-    hashTable[generateKey(8)] = new Person("Paul", "McCartney");
-    hashTable[generateKey(8)] = new Person("Ringo", "Starr");
-    hashTable[generateKey(8)] = new Person("Chuck", "Berry");
-    hashTable[generateKey(8)] = new Person("Mick", "Jagger");
-    hashTable[generateKey(8)] = new Person("Jimi", "Hendrix");
-    hashTable[generateKey(8)] = new Person("Roger", "Waters");
+    hashTable[testKey] = new Student("George", "Harrison", 4);
+    hashTable[generateKey(8)] = new Employee("Paul", "McCartney", 80000);
+    hashTable[generateKey(8)] = new Employee("Ringo", "Starr", 40000);
+    hashTable[generateKey(8)] = new Employee("Chuck", "Berry", 100000);
+    hashTable[generateKey(8)] = new Student("Mick", "Jagger", 3.5);
+    hashTable[generateKey(8)] = new Student("Jimi", "Hendrix", 3.6);
+    hashTable[generateKey(8)] = new Employee("Roger", "Waters", 90000);
+    
     
     let jlKey = generateKey(8);
-    hashTable[jlKey] = new Person("John", "Lennon");
+    hashTable[jlKey] = new Student("John", "Lennon", 3.8);
     let cwKey = generateKey(8);
-    hashTable[cwKey] = new Person("Charlie", "Watts");
+    hashTable[cwKey] = new Student("Charlie", "Watts", 3.1);
     let dgKey = generateKey(8);
-    hashTable[dgKey] = new Person("David", "Gilmour");
+    hashTable[dgKey] = new Employee("David", "Gilmour", 120000);
 
     // AND DISPLAY THE HASH TABLE
     displayHashTable("After Adding 10 Items", hashTable);
@@ -108,9 +102,9 @@ function main() {
     console.log("\nget " + dgKey + ": " + p.toString());
 
     // NOW LET'S TRY REPLACING THE DATA IN THE ABOVE THREE
-    hashTable[jlKey] = new Person("Otis", "Redding");
-    hashTable[cwKey] = new Person("Keith", "Richards");
-    hashTable[dgKey] = new Person("Bill", "Withers");
+    hashTable[jlKey] = new Student("Otis", "Redding", 3.5);
+    hashTable[cwKey] = new Student("Keith", "Richards", 3.1);
+    hashTable[dgKey] = new Student("Bill", "Withers", 3.4);
 
     // AND DISPLAY THE HASH TABLE
     displayHashTable("\nAfter Changing 3 Items", hashTable);

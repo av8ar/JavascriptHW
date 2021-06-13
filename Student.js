@@ -1,6 +1,7 @@
 class Student extends Person {
     constructor(initFirstName, initLastName, initGpa) {
-        this.gpa = initGpa;
+      super(initFirstName, initLastName);
+      this.gpa = initGpa;
     }
     
     getGPA() {
@@ -12,6 +13,6 @@ class Student extends Person {
     }
     
     toString() {
-        return this.getFirstName() + " " + this.getLastName + " (" + this.gpa + ")";
+        return this.firstName + " " + this.lastName +  " (" + this.gpa + ")";
     }
 }
